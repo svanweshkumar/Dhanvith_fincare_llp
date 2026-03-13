@@ -56,7 +56,7 @@
 }
 
 @utility glass-hover {
-  @apply hover:bg-white/80 hover:border-gray-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all duration-500;
+  @apply hover:bg-white/80 hover:border-gray-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] active:bg-white/80 active:border-gray-300 active:shadow-[0_8px_32px_rgba(0,0,0,0.12)] transition-all duration-500;
 }
 
 @utility bento-card {

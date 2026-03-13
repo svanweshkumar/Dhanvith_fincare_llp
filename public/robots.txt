@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ais-pre-pfosfawr2a3g7vcio3nlgr-380558817393.asia-southeast1.run.app/sitemap.xml
+Sitemap: https://dhanvithfincare.com/sitemap.xml

@@ -170,7 +170,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
             <div className="flex items-center gap-3 sm:gap-4 group cursor-pointer">
-              <img src="/assets/logo.svg" alt="Logo" className="w-14 h-14 sm:w-12 sm:h-12 hover:scale-110 hover:rotate-6 transition-all duration-300" />
+              <img src="/assets/logo.svg" alt="Logo" className="w-14 h-14 sm:w-12 sm:h-12 hover:scale-110 active:scale-110 hover:rotate-6 active:rotate-6 transition-all duration-300" />
               <div className="flex flex-col">
                 <span className="font-serif text-xl sm:text-2xl font-black tracking-tighter leading-none text-gray-900">{COMPANY.name}</span>
               </div>
@@ -179,17 +179,17 @@ export default function App() {
             {/* Desktop Nav */}
             <div className="hidden lg:flex items-center space-x-10">
               {['About', 'Services', 'Owner', 'Partners', 'Why Us', 'Process', 'Testimonials', 'Contact'].map((item) => (
-                <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`} className="text-[11px] font-bold uppercase tracking-widest text-gray-600 hover:text-teal transition-all duration-300">
+                <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`} className="text-[11px] font-bold uppercase tracking-widest text-gray-600 hover:text-teal active:text-teal transition-all duration-300">
                   {item}
                 </a>
               ))}
-              <a href="#contact" className="bg-teal text-white px-8 py-3 rounded-2xl text-[11px] font-bold uppercase tracking-widest hover:bg-gold transition-all active:scale-95 shadow-xl shadow-teal/10">
+              <a href="#contact" className="bg-teal text-white px-8 py-3 rounded-2xl text-[11px] font-bold uppercase tracking-widest hover:bg-gold active:bg-gold transition-all active:scale-95 shadow-xl shadow-teal/10">
                 Get Started
               </a>
             </div>
 
             {/* Mobile Menu Toggle */}
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-gray-600 hover:text-teal transition-colors">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-2 text-gray-600 hover:text-teal active:text-teal transition-colors">
               {isMenuOpen ? <X /> : <Menu />}
             </button>
           </div>
@@ -210,19 +210,23 @@ export default function App() {
                     key={item} 
                     href={`#${item.toLowerCase().replace(' ', '-')}`} 
                     onClick={() => setIsMenuOpen(false)}
-                    className="block px-3 py-4 text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-teal hover:bg-gray-100 rounded-xl transition-all"
+                    className="block px-3 py-4 text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-teal active:text-teal hover:bg-gray-100 active:bg-gray-100 rounded-xl transition-all"
                   >
                     {item}
                   </a>
                 ))}
                 <div className="pt-4">
-                  <a 
-                    href="#contact" 
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block w-full text-center bg-teal text-white py-4 rounded-xl font-bold uppercase tracking-widest text-xs"
+                  <button 
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      setTimeout(() => {
+                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                      }, 300);
+                    }}
+                    className="block w-full text-center bg-teal text-white py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-gold active:bg-gold transition-all active:scale-95 shadow-xl shadow-teal/10"
                   >
                     Get Started
-                  </a>
+                  </button>
                 </div>
               </div>
             </motion.div>
@@ -260,10 +264,10 @@ export default function App() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-6 justify-center mb-24">
-                <a href="#contact" className="bg-teal text-white px-12 py-6 rounded-[2rem] font-bold hover:bg-gold transition-all active:scale-95 text-lg shadow-2xl shadow-teal/20 flex items-center justify-center gap-3 group">
-                  Get Started <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                <a href="#contact" className="bg-teal text-white px-12 py-6 rounded-[2rem] font-bold hover:bg-gold active:bg-gold transition-all active:scale-95 text-lg shadow-2xl shadow-teal/20 flex items-center justify-center gap-3 group">
+                  Get Started <ArrowRight className="w-5 h-5 group-hover:translate-x-2 group-active:translate-x-2 transition-transform" />
                 </a>
-                <a href={`tel:${COMPANY.phone1}`} className="glass hover:bg-gray-100 px-12 py-6 rounded-[2rem] font-bold transition-all flex items-center justify-center gap-3 text-lg text-gray-900 border border-gray-200">
+                <a href={`tel:${COMPANY.phone1}`} className="glass hover:bg-gray-100 active:bg-gray-100 px-12 py-6 rounded-[2rem] font-bold transition-all flex items-center justify-center gap-3 text-lg text-gray-900 border border-gray-200">
                   <Phone className="w-5 h-5 text-teal" /> Call Now
                 </a>
               </div>
@@ -283,7 +287,7 @@ export default function App() {
                 { label: "100% Trust", icon: <ShieldCheck className="w-6 h-6 text-teal" />, desc: "Ethical Consulting" },
               ].map((stat, i) => (
                 <div key={i} className="glass glass-hover p-10 rounded-[3rem] group flex flex-col items-center text-center border border-gray-200">
-                  <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-teal group-hover:text-white transition-all duration-700">
+                  <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-teal group-hover:text-white group-active:scale-110 group-active:bg-teal group-active:text-white transition-all duration-700">
                     {React.cloneElement(stat.icon as React.ReactElement, { className: "w-7 h-7" })}
                   </div>
                   <div className="text-2xl font-serif font-black text-gray-900 mb-2">{stat.label}</div>
@@ -371,7 +375,7 @@ export default function App() {
           <div className="grid md:grid-cols-3 gap-8 sm:gap-12">
             {VALUES.map((value, i) => (
               <div key={i} className="reveal bento-card text-center group border border-gray-200">
-                <div className="w-24 h-24 bg-gray-100 rounded-[2.5rem] flex items-center justify-center text-teal mx-auto mb-12 group-hover:bg-teal group-hover:text-white transition-all duration-700 border border-gray-300 shadow-sm">
+                <div className="w-24 h-24 bg-gray-100 rounded-[2.5rem] flex items-center justify-center text-teal mx-auto mb-12 group-hover:bg-teal group-hover:text-white group-active:bg-teal group-active:text-white active:bg-teal active:text-white transition-all duration-700 border border-gray-300 shadow-sm">
                   {React.cloneElement(value.icon as React.ReactElement, { className: "w-8 h-8" })}
                 </div>
                 <h3 className="text-4xl font-serif font-bold mb-8 tracking-tight text-gray-900">{value.title}</h3>
@@ -389,7 +393,7 @@ export default function App() {
           <div className="grid lg:grid-cols-2 gap-32 items-center">
             <div className="reveal order-2 lg:order-1">
               <div className="relative group">
-                <div className="absolute -top-20 -left-20 w-96 h-96 bg-teal/5 rounded-full blur-[120px] group-hover:bg-teal/10 transition-all duration-1000" />
+                <div className="absolute -top-20 -left-20 w-96 h-96 bg-teal/5 rounded-full blur-[120px] group-hover:bg-teal/10 group-active:bg-teal/10 active:bg-teal/10 transition-all duration-1000" />
                 
                 <motion.div 
                   whileHover={{ scale: 1.02 }}
@@ -399,7 +403,7 @@ export default function App() {
                     <img 
                     src={OWNER.photo} 
                     alt={OWNER.name} 
-                    className="w-full max-w-lg mx-auto rounded-[4rem] shadow-lg border border-gray-300 grayscale hover:grayscale-0 transition-all duration-1000 object-top object-cover aspect-[3/4]"
+                    className="w-full max-w-lg mx-auto rounded-[4rem] shadow-lg border border-gray-300 grayscale hover:grayscale-0 active:grayscale-0 transition-all duration-1000 object-top object-cover aspect-[3/4]"
                     referrerPolicy="no-referrer"
                   />
                   
@@ -414,7 +418,7 @@ export default function App() {
                           { icon: <Instagram className="w-5 h-5" />, link: OWNER.social.instagram },
                           { icon: <Facebook className="w-5 h-5" />, link: OWNER.social.facebook }
                         ].map((s, i) => (
-                          <a key={i} href={s.link} className="w-14 h-14 rounded-2xl glass flex items-center justify-center text-gray-600 hover:text-teal hover:border-teal/20 transition-all duration-300">
+                          <a key={i} href={s.link} className="w-14 h-14 rounded-2xl glass flex items-center justify-center text-gray-600 hover:text-teal active:text-teal hover:border-teal/20 active:border-teal/20 transition-all duration-300">
                             {s.icon}
                           </a>
                         ))}
@@ -481,7 +485,7 @@ export default function App() {
                 <div className="pt-10">
                   <a href="#contact" className="inline-flex items-center gap-4 text-black font-bold group text-lg">
                     Schedule a meeting with Arun 
-                    <ArrowRight className="w-6 h-6 group-hover:translate-x-3 transition-transform duration-500 text-teal" />
+                    <ArrowRight className="w-6 h-6 group-hover:translate-x-3 group-active:translate-x-3 transition-transform duration-500 text-teal" />
                   </a>
                 </div>
               </div>
@@ -501,7 +505,7 @@ export default function App() {
           </div>
 
 {TEAM.map((member, i) => (
-              <div key={i} className="reveal group flex flex-col lg:flex-row gap-10 lg:gap-16 overflow-hidden rounded-[3rem] border border-gray-200/50 glass shadow-2xl hover:shadow-2xl hover:shadow-teal/20 hover:-translate-y-2 lg:hover:-translate-y-6 transition-all duration-700 min-h-[580px] lg:min-h-[500px]">
+              <div key={i} className="reveal group flex flex-col lg:flex-row gap-10 lg:gap-16 overflow-hidden rounded-[3rem] border border-gray-200/50 glass shadow-2xl hover:shadow-2xl hover:shadow-teal/20 hover:-translate-y-2 lg:hover:-translate-y-6 active:shadow-2xl active:shadow-teal/20 active:-translate-y-2 lg:active:-translate-y-6 transition-all duration-700 min-h-[580px] lg:min-h-[500px]">
                 <div className="relative flex-shrink-0 w-full lg:w-[28rem] lg:aspect-[3/4] overflow-hidden rounded-[2.5rem] lg:rounded-l-[3rem] lg:rounded-r-none grayscale group-hover:grayscale-0 flex-grow-0">
                   <img 
                     src={member.photo} 
@@ -595,8 +599,8 @@ export default function App() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
             {WHY_US.map((item, i) => (
-              <div key={i} className="reveal bento-card group border border-gray-200">
-                <div className="text-6xl mb-10 group-hover:scale-110 transition-transform duration-700 block">{item.icon}</div>
+              <div key={i} className="reveal bento-card group border border-gray-200 active:-translate-y-2">
+                <div className="text-6xl mb-10 group-hover:scale-110 active:scale-110 transition-transform duration-700 block">{item.icon}</div>
                 <h3 className="text-3xl font-serif font-bold mb-6 tracking-tight text-gray-900">{item.title}</h3>
                 <p className="text-gray-600 text-lg leading-relaxed font-medium opacity-80">{item.desc}</p>
               </div>
@@ -683,7 +687,7 @@ export default function App() {
                   <div>
                     <h4 className="text-2xl font-serif font-bold mb-3 tracking-tight text-gray-900">Visit Our Office</h4>
                     <p className="text-gray-600 text-lg leading-relaxed font-medium opacity-80">{COMPANY.location}</p>
-                    <a href="https://maps.app.goo.gl/your_location_link_here" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mt-3 text-teal hover:text-teal-dark font-bold text-sm group">
+                    <a href="https://maps.app.goo.gl/Bb9WsPxFCSSVYEH76" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mt-3 text-teal hover:text-teal-dark font-bold text-sm group">
                       <MapPin className="w-4 h-4" />
                       View on Google Maps
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
