@@ -23,6 +23,16 @@
   body {
     @apply bg-white text-gray-900 font-sans antialiased selection:bg-teal/20 selection:text-gray-900 leading-relaxed tracking-tight;
   }
+
+  section {
+    scroll-margin-top: 110px;
+  }
+
+  @media (max-width: 1024px) {
+    section {
+      scroll-margin-top: 96px;
+    }
+  }
   
   .text-justify-custom {
     text-align: justify;

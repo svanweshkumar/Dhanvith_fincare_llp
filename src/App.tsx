@@ -80,7 +80,7 @@ const OWNER = {
   experience: "10+ Years in Banking & NBFC sectors",
   bio: [
     "Arun is a dedicated financial professional with over 10 years of extensive experience in the banking and financial services sector, committed to providing transparent and customer-centric financial solutions.",
-    "His professional journey began at the frontlines of India's most respected financial institutions — HDFC Bank, Axis Bank, and IFSL Gold Loan — where he served as a Relationship Manager, building a reputation for integrity, precision, and client trust. Across these roles, he cultivated deep expertise in Banking and NBFC operations, specialising in high-value client relationship management and gold loan portfolio administration. It was here that he mastered the art of translating complex financial products into clear, actionable solutions for his clients.",
+    "His professional journey began at the frontlines of India's most respected financial institutions — HDFC Bank, Axis Bank, and IIFL Gold Loan — where he served as a Relationship Manager, building a reputation for integrity, precision, and client trust. Across these roles, he cultivated deep expertise in Banking and NBFC operations, specialising in high-value client relationship management and gold loan portfolio administration. It was here that he mastered the art of translating complex financial products into clear, actionable solutions for his clients.",
     "Today, leveraging his decade-long industry knowledge, Arun leads Dhanvith Fincare LLP with a clear mission: to bridge the gap between complex financial processes and the common man — offering simplified, reliable, and swift financial assistance with the same integrity and excellence he has practised throughout his professional journey."
   ],
   highlights: [
@@ -124,6 +124,15 @@ export default function App() {
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     return () => observer.disconnect();
   }, []);
+
+  const handleNavigate = (targetId: string) => {
+    const section = document.getElementById(targetId);
+    if (!section) return;
+    const headerOffset = 96; // fixed nav height + padding
+    const elementPosition = section.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = elementPosition - headerOffset;
+    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -178,12 +187,36 @@ export default function App() {
 
             {/* Desktop Nav */}
             <div className="hidden lg:flex items-center space-x-10">
-              {['About', 'Services', 'Owner', 'Partners', 'Why Us', 'Process', 'Testimonials', 'Contact'].map((item) => (
-                <a key={item} href={`#${item.toLowerCase().replace(' ', '-')}`} className="text-[11px] font-bold uppercase tracking-widest text-gray-600 hover:text-teal active:text-teal transition-all duration-300">
-                  {item}
+              {[
+                { label: 'About', target: 'about' },
+                { label: 'Services', target: 'services' },
+                { label: 'Founder', target: 'owner' },
+                { label: 'Partners', target: 'partners' },
+                { label: 'Why Us', target: 'why-us' },
+                { label: 'Process', target: 'process' },
+                { label: 'Testimonials', target: 'testimonials' },
+                { label: 'Contact', target: 'contact' },
+              ].map((item) => (
+                <a
+                  key={item.label}
+                  href={`#${item.target}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavigate(item.target);
+                  }}
+                  className="text-[11px] font-bold uppercase tracking-widest text-gray-600 hover:text-teal active:text-teal transition-all duration-300"
+                >
+                  {item.label}
                 </a>
               ))}
-              <a href="#contact" className="bg-teal text-white px-8 py-3 rounded-2xl text-[11px] font-bold uppercase tracking-widest hover:bg-gold active:bg-gold transition-all active:scale-95 shadow-xl shadow-teal/10">
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavigate('contact');
+                }}
+                className="bg-teal text-white px-8 py-3 rounded-2xl text-[11px] font-bold uppercase tracking-widest hover:bg-gold active:bg-gold transition-all active:scale-95 shadow-xl shadow-teal/10"
+              >
                 Get Started
               </a>
             </div>
@@ -205,14 +238,29 @@ export default function App() {
               className="lg:hidden glass overflow-hidden"
             >
               <div className="px-4 pt-2 pb-6 space-y-1">
-                {['About', 'Services', 'Owner', 'Partners', 'Why Us', 'Process', 'Testimonials', 'Contact'].map((item) => (
+                {[
+                  { label: 'About', target: 'about' },
+                  { label: 'Services', target: 'services' },
+                  { label: 'Founder', target: 'owner' },
+                  { label: 'Partners', target: 'partners' },
+                  { label: 'Why Us', target: 'why-us' },
+                  { label: 'Process', target: 'process' },
+                  { label: 'Testimonials', target: 'testimonials' },
+                  { label: 'Contact', target: 'contact' },
+                ].map((item) => (
                   <a 
-                    key={item} 
-                    href={`#${item.toLowerCase().replace(' ', '-')}`} 
-                    onClick={() => setIsMenuOpen(false)}
+                    key={item.label} 
+                    href={`#${item.target}`} 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsMenuOpen(false);
+                      setTimeout(() => {
+                        handleNavigate(item.target);
+                      }, 180);
+                    }}
                     className="block px-3 py-4 text-sm font-bold uppercase tracking-widest text-gray-600 hover:text-teal active:text-teal hover:bg-gray-100 active:bg-gray-100 rounded-xl transition-all"
                   >
-                    {item}
+                    {item.label}
                   </a>
                 ))}
                 <div className="pt-4">
@@ -220,7 +268,7 @@ export default function App() {
                     onClick={() => {
                       setIsMenuOpen(false);
                       setTimeout(() => {
-                        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                        handleNavigate('contact');
                       }, 300);
                     }}
                     className="block w-full text-center bg-teal text-white py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-gold active:bg-gold transition-all active:scale-95 shadow-xl shadow-teal/10"
@@ -875,9 +923,17 @@ export default function App() {
             </div>
           </div>
 
-          <div className="mt-16 text-center">
+         <div className="mt-16 text-center">
             <p className="text-[10px] text-gray-600/60 max-w-3xl mx-auto leading-relaxed uppercase tracking-widest font-bold">
-              Disclaimer: Dhanvith Fincare LLP is a financial consulting firm. We are not a bank. Loan approvals are subject to the terms and conditions of the respective lending institutions.
+               Disclaimers
+            </p>
+
+            <p className="text-[10px] text-gray-600/60 max-w-3xl mx-auto leading-relaxed uppercase tracking-widest font-bold">
+               Mutual Fund investments are subject to market risks. Please read all scheme-related documents carefully before investing.
+            </p>
+
+            <p className="text-[10px] text-gray-600/60 max-w-3xl mx-auto leading-relaxed uppercase tracking-widest font-bold mt-2">
+               Dhanvith Fincare LLP is a financial consulting firm. We are not a bank. Loan approvals are subject to the terms and conditions of the respective lending institutions.
             </p>
           </div>
         </div>
